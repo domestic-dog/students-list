@@ -13,7 +13,7 @@ class RegisterController
     public function actionIndex()
     {
 
-
+        Helper::checkAuth();
         $firstname = '';
         $surname = '';
         $gender = '';
@@ -53,6 +53,7 @@ class RegisterController
 
             if ($errors == false) {
                 $result = User::register($firstname, $surname, $gender, $groups, $points,$email,$fromis);
+                header("Location: / ");
             }
 
         }

@@ -7,12 +7,11 @@
     <title>Students list</title>
   </head>
   <body>
-  <?php echo $_COOKIE['surname'] ;?>
-  <?php echo $_COOKIE['key'];?>
+  <?php echo $_SESSION['test'] ;?>
   <div class="container">
-      <div class="d-flex p-2 bg-dark text-light"><h3 class="text-center">Таблица абитуриентов</h3>
+      <div class="d-flex p-2 bg-dark text-light"><h3 class="text-center">Таблица абитуриентов <?php echo'<a>                   Привет'   .$_COOKIE['surname']. '</a>' ;?> </h3>
 <div class="ml-auto p-0  bg-dark text-light ">
-    <h5 class="text-center"><a href="/register/"> <?php if($_SESSION['auth'] == false):echo 'Регистрация'; endif; ?> </a></h5>
+ <?php if($_COOKIE['surname'] == false):echo '<h5 class="text-center"><a class="sad" href="/register/">register</a></h5>'; endif; ?>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

@@ -24,15 +24,15 @@ class Helper
             //Пишем логин и ключ из КУК в переменные (для удобства работы):
             $surname = $_COOKIE['surname'];
             $key = $_COOKIE['key']; //ключ из кук (аналог пароля, в базе поле cookie)
-
+            $_SESSION['test']='Hello world!';
             $db = Db::getConnection();
 
-            $result = $db->query('SELECT * FROM reg WHERE surname="$surname"' .  'AND salt="$key"');
-            $result->fetch(PDO::FETCH_ASSOC);
-
-            if (!empty($result)) {
+            $result = $db->query('SELECT*FROM reg WHERE surname="'.$surname.'" AND salt="'.$key.'"');
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $result->fetch();
+            if (!empty($row)) {
                 //Стартуем сессию:
-                session_start();
+//                session_start();
 
                 //Пишем в сессию информацию о том, что мы авторизовались:
                 $_SESSION['auth'] = true;
@@ -45,7 +45,7 @@ class Helper
 
     public static function checkAuth()
     {
-        if ($_SESSION['auth'] == true) {
+        if ($_COOKIE['surname'] == true ) {
             header("Location: /  ");
         }
     }
