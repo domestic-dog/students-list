@@ -5,6 +5,7 @@ class Router
 
     private $routes;
     public $posturi;
+
     public function __construct()
     {
         $routesPath = ROOT . '/config/routes.php';
@@ -27,7 +28,6 @@ class Router
         $uri = $this->getURI();
 
 
-
         foreach ($this->routes as $uriPattern => $path) {
 
 
@@ -36,7 +36,7 @@ class Router
 
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
                 $this->posturi = stristr($internalRoute, '?'); // забираем
-           //     $internalRoute = preg_replace("/\?.+/", "", $internalRoute); //обрезаем чтобы экшон мог работать
+                //     $internalRoute = preg_replace("/\?.+/", "", $internalRoute); //обрезаем чтобы экшон мог работать
                 $segments = explode('/', $internalRoute);
                 $controllerName = array_shift($segments) . 'Controller';
                 $controllerName = ucfirst($controllerName);

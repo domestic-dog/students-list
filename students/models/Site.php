@@ -9,7 +9,8 @@
 class Site
 {
     const SHOW_BY_DEFAULT = 20;
-    public static function getList($count = self::SHOW_BY_DEFAULT ) //$page = 1 вставить
+
+    public static function getList($count = self::SHOW_BY_DEFAULT) //$page = 1 вставить
     {
         $count = intval($count);
 //        $page = intval($page);
@@ -18,13 +19,14 @@ class Site
         $db = Db::getConnection();
         $List = array();
 
-        $result = $db->query('SELECT  firstname, surname, gender, groups, points  FROM reg '
+        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
             . 'ORDER BY id DESC '
             . 'LIMIT ' . $count);
 //            . ' OFFSET ' . $offset);
 
         $i = 0;
         while ($row = $result->fetch()) {
+            $List[$i]['id'] = $row['id'];
             $List[$i]['firstname'] = $row['firstname'];
             $List[$i]['surname'] = $row['surname'];
             $List[$i]['gender'] = $row['gender'];
@@ -35,4 +37,13 @@ class Site
 
         return $List;
     }
+//    public static function PointsUp()
+//    {
+//        $db = Db::getConnection();
+//        $result = $db->query('SELECT * FROM reg ORDER BY points DESC')
+//        $result->setFetchMode(PDO::FETCH_ASSOC);
+//        echo "$result";
+//    }
+
+
 }

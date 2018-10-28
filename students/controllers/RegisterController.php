@@ -12,7 +12,6 @@ class RegisterController
 
     public function actionIndex()
     {
-
         Helper::checkAuth();
         $firstname = '';
         $surname = '';
@@ -46,13 +45,13 @@ class RegisterController
 //                $errors[] = 'Пароль не должен быть короче 6-ти символов';
 //            }
 //
-//            if (User::checkEmailExists($email)) {
-//                $errors[] = 'Такой email уже используется';
-//            }
+            if (User::checkEmailExists($email)) {
+                $errors['email'] = 'Такой email уже используется';
+            }
 
 
             if ($errors == false) {
-                $result = User::register($firstname, $surname, $gender, $groups, $points,$email,$fromis);
+                $result = User::register($firstname, $surname, $gender, $groups, $points, $email, $fromis);
                 header("Location: / ");
             }
 
