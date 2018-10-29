@@ -78,6 +78,12 @@
             <small id="emailHelp" class="form-text text-muted">Ваша группа</small>
         </div>
         <div class="form-group">
+            <?php if (isset($errors) && is_array($errors) && array_key_exists('points', $errors)): ?>
+                <ul>
+
+                    <li> - <?php echo $errors['points']; ?></li>
+                </ul>
+            <?php endif; ?>
             <label for="exampleFormControlInput1">Баллы</label>
             <input class="form-control" id="exampleFormControlInput1" name="points" aria-describedby="emailHelp"
                    placeholder="300">
@@ -87,11 +93,6 @@
     </form>
 
 </div>
-<style media="screen">
-    .form-inline {
-        margin: 0;
-    }
-</style>
 
 
 </body>

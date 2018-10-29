@@ -11,4 +11,9 @@ class SiteController
         require_once(ROOT . '/views/site/index.php');
         return true;
     }
+    public static function actionNone()
+    {
+        require_once(ROOT . '/views/404/404.php');
+        return true;
+    }
 }

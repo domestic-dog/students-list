@@ -13,6 +13,9 @@ class RegisterController
     public function actionIndex()
     {
         Helper::checkAuth();
+        if ($_SESSION['auth'] == true) {
+            header("Location: / ");
+        }
         $firstname = '';
         $surname = '';
         $gender = '';
@@ -48,6 +51,9 @@ class RegisterController
             if (User::checkEmailExists($email)) {
                 $errors['email'] = 'Такой email уже используется';
             }
+            if (!User::checkPoints($points)) {
+                $errors['points'] = 'Вы не можете ввести больше 300 баллов';
+            }
 
 
             if ($errors == false) {
@@ -61,6 +67,7 @@ class RegisterController
 
         return true;
     }
+
 //    public  static  function setCokies {
 //        $_SESSION['auth'] = true;
 //        $key = Helper::generateSalt();

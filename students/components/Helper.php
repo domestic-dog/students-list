@@ -8,13 +8,11 @@
 
 class Helper
 {
+    public $key;
     public static function generateSalt()
     {
-        $salt = '';
-        $saltLength = 8; //длина соли
-        for ($i = 0; $i < $saltLength; $i++) {
-            $salt .= chr(mt_rand(33, 126)); //символ из ASCII-table
-        }
+        $salt = random_int(1000000000, 100000000000);
+
         return $salt;
     }
 
@@ -23,6 +21,7 @@ class Helper
         if (!empty($_COOKIE['surname']) and !empty($_COOKIE['key'])) {
             $surname = $_COOKIE['surname'];
             $key = $_COOKIE['key']; //ключ из кук (аналог пароля, в базе поле cookie)
+//
 //            $_SESSION['test']='Hello world!';
             $db = Db::getConnection();
 
@@ -49,5 +48,12 @@ class Helper
         } else {
             $_SESSION['auth'] = false;
         }
+    }
+    public static function none()
+    {
+        {
+        require_once(ROOT . '/views/404/404.php');
+        return true;
+    }
     }
 }

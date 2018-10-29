@@ -30,7 +30,6 @@ class Router
 
         foreach ($this->routes as $uriPattern => $path) {
 
-
             if (preg_match("~$uriPattern~", $uri)) {
 
 
@@ -62,8 +61,15 @@ class Router
                 if ($result != null) {
                     break;
                 }
+//                else {
+//                    include_once(ROOT.'/controllers/SiteController.php');
+//                    $segments = explode('/', '');
+//
+//                    $mir= new SiteController;
+//                    $result = call_user_func_array(array($mir, 'actionNone'), $segments);
+//                }
             }
         }
-    }
 
+    }
 }

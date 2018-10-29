@@ -9,7 +9,7 @@
     <title>Students list</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="d-flex p-2 bg-dark text-light"><h3 class="text-center">Таблица
             абитуриентов <?php if (!empty($_COOKIE['surname'])): echo 'Привет ' . $_COOKIE['surname']; endif; ?> </h3>
         <div class="ml-auto p-0  bg-dark text-light ">
@@ -48,12 +48,7 @@
     </tbody>
     </table>
 </div>
-<style media="screen">
-    .form-inline {
-        margin: 0;
-    }
-</style>
-
+</body>
 <script>
     jQuery(document).ready(function ($) {
         $(".active").click(function () {
@@ -61,3 +56,5 @@
         });
     });
 </script>
+</html>
+

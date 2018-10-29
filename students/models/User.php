@@ -70,6 +70,16 @@ class User
             return true;
         return false;
     }
+    public static  function checkPoints($points)
+    {
+        if ($points > 300){
+            return false;
+
+        } else {
+            return true;
+
+        }
+    }
 
 
 }
