@@ -8,15 +8,15 @@
     <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     <title>Students list</title>
 </head>
-<body>
+<body >
 <div class="container-fluid">
     <div class="d-flex p-2 bg-dark text-light"><h3 class="text-center">Таблица
-            абитуриентов <?php if (!empty($_COOKIE['surname'])): echo 'Привет ' . $_COOKIE['surname']; endif; ?> </h3>
+            абитуриентов <?php if (!empty($_COOKIE['surname'])): echo 'Привет ' . $_SERVER['REQUEST_URI']; endif; ?> </h3>
         <div class="ml-auto p-0  bg-dark text-light ">
             <?php if ($_SESSION['auth'] == false):echo '<h5 class="text-center"><a class="sad" href="/register/">register</a></h5>'; endif; ?>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline my-2 my-lg-0" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="req">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submits">Search</button>
             </form>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <th scope="col">Фамилия</th>
         <th scope="col">Пол</th>
         <th scope="col">Номер группы</th>
-        <th scope="col">Баллов</th>
+        <th scope="col"><a href="<?php if (Helper::Link()):  ; endif; ?>" style="color: black"  >Баллы ▼</a></th>
     </tr>
     </thead>
     <tbody>

@@ -22,7 +22,7 @@ class Profile
         $id = intval($id);
         $db = Db::getConnection();
         $key = $_COOKIE['key'];
-        var_dump($_COOKIE['key']);
+//        var_dump($_COOKIE['key']);
         $result=$db->query('SELECT id FROM reg WHERE salt='.$key);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         $ia = $result->fetch();
@@ -32,5 +32,11 @@ class Profile
 
         return false;
 
+    }
+    public static function goEdit($id)
+    {
+        if(Profile::CheckSalt($id) == true) {
+            return true;
+        }
     }
 }

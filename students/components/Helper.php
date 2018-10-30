@@ -56,4 +56,12 @@ class Helper
         return true;
     }
     }
+    public static function Link()
+    {    if ($_SERVER['REQUEST_URI'] == '/' ) {
+            echo'/maxpoints';
+
+        } else {
+        echo'/';
+    }
+    }
 }

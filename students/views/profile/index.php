@@ -24,7 +24,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <form>
+                        <form method="post">
                             <div class="form-group row">
                                 <label for="username" class="col-4 col-form-label">Имя</label>
                                 <div class="col-8">
@@ -49,7 +49,7 @@
                                     <input id="text" name="text" value="<?php echo $list['points']; ?>"  readonly class="form-control-plaintext" required="required" type="text">
                                 </div>
                             </div>
-                                if
+                            <?php if(Profile::goEdit($list['id'])==true): echo'<button type="submit" class="btn btn-primary" name="submit" value="true" >Редактировать профиль</button>'; endif; ?>
 
 
                         </form>

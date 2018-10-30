@@ -45,5 +45,89 @@ class Site
 //        echo "$result";
 //    }
 
+    public static function getMaxList($count = self::SHOW_BY_DEFAULT) //$page = 1 вставить
+    {
+        $count = intval($count);
+//        $page = intval($page);
+//        $offset = $page * $count;
+
+        $db = Db::getConnection();
+        $List = array();
+
+        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
+            . 'ORDER BY points DESC '
+            . 'LIMIT ' . $count);
+//            . ' OFFSET ' . $offset);
+
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $List[$i]['id'] = $row['id'];
+            $List[$i]['firstname'] = $row['firstname'];
+            $List[$i]['surname'] = $row['surname'];
+            $List[$i]['gender'] = $row['gender'];
+            $List[$i]['groups'] = $row['groups'];
+            $List[$i]['points'] = $row['points'];
+            $i++;
+        }
+
+        return $List;
+    }
+    public  static  function Search($request)
+    {
+        $db = Db::getConnection();
+        $List = array();
+
+        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg ');
+//            . ' OFFSET ' . $offset);
+
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $List[$i]['id'] = $row['id'];
+            $List[$i]['firstname'] = $row['firstname'];
+            $List[$i]['surname'] = $row['surname'];
+            $List[$i]['gender'] = $row['gender'];
+            $List[$i]['groups'] = $row['groups'];
+            $List[$i]['points'] = $row['points'];
+            $i++;
+        }
+        $ise = $List;
+        $m3 = array();
+        $i=1;
+        $go= array();
+        foreach($ise  as $num) {
+            $m3[$i] = $num['firstname']. ' ' . $num['surname']. ' '. $num['gender']. ' '.$num['groups']. ' '. $num['points'];
+            $i++;
+        }
+        for ($s= 1; $s !=$i; $s++) {
+            $sd = $m3[$s];
+
+            $test = stripos($sd, $request);
+            if ($test !== false) {
+            array_push($go,$s);
+
+            }
+
+        }
+        print_r($go);
+        $db = Db::getConnection();
+        $Listt = array();
+        $ss=0;
+        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
+            . 'WHERE id='.$go[$ss]);
+//            . ' OFFSET ' . $offset);
+
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $List[$i]['id'] = $row['id'];
+            $List[$i]['firstname'] = $row['firstname'];
+            $List[$i]['surname'] = $row['surname'];
+            $List[$i]['gender'] = $row['gender'];
+            $List[$i]['groups'] = $row['groups'];
+            $List[$i]['points'] = $row['points'];
+            $i++;
+        }
+
+        return $List;
+    }
 
 }

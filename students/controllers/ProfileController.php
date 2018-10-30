@@ -14,6 +14,10 @@ class ProfileController
 
 
         require_once (ROOT . '/views/profile/index.php');
+        if (Profile::CheckSalt($id) == true && isset($_POST['submit'])) {
+            header("Location: /edit/$id");
+
+        }
         return true;
     }
 
@@ -22,9 +26,10 @@ class ProfileController
         if(Profile::CheckSalt($id) == true) {
             $list = Profile::GetInfoById($id);
             require_once (ROOT . '/views/profile/edit.php');
-    }   else {
-//            require_once (ROOT . '/views/404/404.php');
-        }
+    }
+//    else {
+////            require_once (ROOT . '/views/404/404.php');
+//        }
 
         return true;
     }
