@@ -7,11 +7,12 @@ class SiteController
     {
         Helper::checkAuth();
         $list = array();
-//        $list = Site::getList(100);
+      $list = Site::getList(100);
         require_once(ROOT . '/views/site/index.php');
 
         if (isset($_POST['submits'])) {
             $request = $_POST['req'];
+
             $list = array();
             $list = Site::Search($request);
             require_once(ROOT . '/views/site/index.php');
@@ -34,7 +35,10 @@ class SiteController
     }
     public function actionResult()
     {
-
+        Helper::checkAuth();
+        $list = array();
+        $list = Site::Search('Descry');
+        require_once(ROOT . '/views/site/index.php');
         return true;
 
     }
