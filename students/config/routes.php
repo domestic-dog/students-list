@@ -4,6 +4,7 @@ return array(
     'profile/([0-9]+)' => 'profile/view/$1',
     'register' => 'register/index',
     'maxpoints' => 'site/maxpoints',
+    'result' => 'site/result',
     '' => 'site/index',
 
 

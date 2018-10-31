@@ -7,13 +7,14 @@ class SiteController
     {
         Helper::checkAuth();
         $list = array();
-        $list = Site::getList(100);
+//        $list = Site::getList(100);
         require_once(ROOT . '/views/site/index.php');
 
         if (isset($_POST['submits'])) {
             $request = $_POST['req'];
-            Site::Search($request);
-
+            $list = array();
+            $list = Site::Search($request);
+            require_once(ROOT . '/views/site/index.php');
 
         }
         return true;
@@ -30,5 +31,11 @@ class SiteController
         $list = Site::getmaxList(20);
         require_once(ROOT . '/views/site/index.php');
         return true;
+    }
+    public function actionResult()
+    {
+
+        return true;
+
     }
 }

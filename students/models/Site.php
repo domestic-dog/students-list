@@ -76,47 +76,38 @@ class Site
     public  static  function Search($request)
     {
         $db = Db::getConnection();
-        $List = array();
-        $sql= "SELECT id FROM reg WHERE firstname LIKE '%" . $request . "%'";
-        $result= $db->query($sql);
+        $srhresult = array();
+        $sql = "Select id from `reg` where `firstname`  Like '%$request%' OR `surname` Like '%$request%' OR `gender` Like '%$request%'OR `groups` Like '%$request%'OR `points` Like '%$request%'";
+
+        $result = $db->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $i = 0;
         while ($row = $result->fetch()) {
-            $List[$i] = $row['id'];
+            $srhresult[$i] = $row['id'];
 
             $i++;
         }
-        var_dump($List);
-    }
-    public static function getSeachList($count = self::SHOW_BY_DEFAULT) //$page = 1 вставить
-    {
-        $count = intval($count);
-//        $page = intval($page);
-//        $offset = $page * $count;
+            $list = array();
+            $s=0;
+            $result = $db->prepare('SELECT   firstname, surname, gender, groups, points  FROM reg where id = ?');
+            foreach($srhresult as $key => $id ) { // $srhresult -массив где хранятся мне нужные id
 
-        $db = Db::getConnection();
-        $List = array();
 
-        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
-            . 'ORDER BY points DESC '
-            . 'LIMIT ' . $count);
-//            . ' OFFSET ' . $offset);
+                $result->execute([$id]);
+                $list[$s]= $result->fetch();
+                 // в итоге оно выводит только первый айдишник, в чем может быть пробема?
 
-        $i = 0;
-        while ($row = $result->fetch()) {
-            $List[$i]['id'] = $row['id'];
-            $List[$i]['firstname'] = $row['firstname'];
-            $List[$i]['surname'] = $row['surname'];
-            $List[$i]['gender'] = $row['gender'];
-            $List[$i]['groups'] = $row['groups'];
-            $List[$i]['points'] = $row['points'];
-            $i++;
+
+
+            $s++;
         }
-        var_dump($List);
 
-        return $List;
+//        print_r($srhresult);
+        var_dump($list);
+            return $list;
     }
+
 
 //        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg ');
 ////            . ' OFFSET ' . $offset);
