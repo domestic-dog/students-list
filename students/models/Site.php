@@ -69,6 +69,7 @@ class Site
             $List[$i]['points'] = $row['points'];
             $i++;
         }
+        var_dump($List);
 
         return $List;
     }
@@ -76,44 +77,30 @@ class Site
     {
         $db = Db::getConnection();
         $List = array();
-
-        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg ');
-//            . ' OFFSET ' . $offset);
+        $sql= "SELECT id FROM reg WHERE firstname LIKE '%" . $request . "%'";
+        $result= $db->query($sql);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $i = 0;
         while ($row = $result->fetch()) {
-            $List[$i]['id'] = $row['id'];
-            $List[$i]['firstname'] = $row['firstname'];
-            $List[$i]['surname'] = $row['surname'];
-            $List[$i]['gender'] = $row['gender'];
-            $List[$i]['groups'] = $row['groups'];
-            $List[$i]['points'] = $row['points'];
+            $List[$i] = $row['id'];
+
             $i++;
         }
-        $ise = $List;
-        $m3 = array();
-        $i=1;
-        $go= array();
-        foreach($ise  as $num) {
-            $m3[$i] = $num['firstname']. ' ' . $num['surname']. ' '. $num['gender']. ' '.$num['groups']. ' '. $num['points'];
-            $i++;
-        }
-        for ($s= 1; $s !=$i; $s++) {
-            $sd = $m3[$s];
+        var_dump($List);
+    }
+    public static function getSeachList($count = self::SHOW_BY_DEFAULT) //$page = 1 вставить
+    {
+        $count = intval($count);
+//        $page = intval($page);
+//        $offset = $page * $count;
 
-            $test = stripos($sd, $request);
-            if ($test !== false) {
-            array_push($go,$s);
-
-            }
-
-        }
-        print_r($go);
         $db = Db::getConnection();
-        $Listt = array();
-        $ss=0;
+        $List = array();
+
         $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
-            . 'WHERE id='.$go[$ss]);
+            . 'ORDER BY points DESC '
+            . 'LIMIT ' . $count);
 //            . ' OFFSET ' . $offset);
 
         $i = 0;
@@ -126,8 +113,64 @@ class Site
             $List[$i]['points'] = $row['points'];
             $i++;
         }
+        var_dump($List);
 
         return $List;
     }
+
+//        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg ');
+////            . ' OFFSET ' . $offset);
+//
+//        $i = 0;
+//        while ($row = $result->fetch()) {
+//            $List[$i]['id'] = $row['id'];
+//            $List[$i]['firstname'] = $row['firstname'];
+//            $List[$i]['surname'] = $row['surname'];
+//            $List[$i]['gender'] = $row['gender'];
+//            $List[$i]['groups'] = $row['groups'];
+//            $List[$i]['points'] = $row['points'];
+//            $i++;
+//        }
+//        $ise = $List;
+//        $m3 = array();
+//        $i=1;
+//        $go= array();
+//        foreach($ise  as $num) {
+//            $m3[$i] = $num['firstname']. ' ' . $num['surname']. ' '. $num['gender']. ' '.$num['groups']. ' '. $num['points'];
+//            $i++;
+//        }
+//        for ($s= 1; $s !=$i; $s++) {
+//            $sd = $m3[$s];
+//
+//            $test = stripos($sd, $request);
+//            if ($test !== false) {
+//            array_push($go,$s);
+//
+//            }
+//
+//        }
+//        print_r($go);
+// $flipped = array_flip($go);
+//  print_r($flipped);
+//        $db = Db::getConnection();
+//        $Listt = array();
+//        $ss=0;
+//        $result = $db->query('SELECT  id, firstname, surname, gender, groups, points  FROM reg '
+//            . 'WHERE id='.$go[$ss]);
+////            . ' OFFSET ' . $offset);
+//
+//        $i = 0;
+//        while ($row = $result->fetch()) {
+//            $List[$i]['id'] = $row['id'];
+//            $List[$i]['firstname'] = $row['firstname'];
+//            $List[$i]['surname'] = $row['surname'];
+//            $List[$i]['gender'] = $row['gender'];
+//            $List[$i]['groups'] = $row['groups'];
+//            $List[$i]['points'] = $row['points'];
+//            $i++;
+//        }
+//
+//        return $List;
+
 
 }
