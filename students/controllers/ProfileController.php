@@ -26,10 +26,39 @@ class ProfileController
         if(Profile::CheckSalt($id) == true) {
             $list = Profile::GetInfoById($id);
             require_once (ROOT . '/views/profile/edit.php');
-    }
-//    else {
-////            require_once (ROOT . '/views/404/404.php');
-//        }
+            if (isset($_POST['submit'])) {
+                $firstname = $_POST['firstname'];
+                $surname = $_POST['surname'];
+                $gender = $_POST['gender'];
+                $groups = $_POST['groups'];
+                $points = $_POST['points'];
+
+                $errors = false;
+
+                if (!User::checkName($firstname)) {
+                    $errors['firstname'] = 'Ваше имя не может быть числом';
+                }
+                if (!User::checkSurname($surname)) {
+                    $errors['surname'] = 'Ваша фамилия не может быть числом';
+                }
+
+
+                if (!User::checkPoints($points)) {
+                    $errors['points'] = 'Вы не можете ввести больше 300 баллов';
+                }
+
+
+                if ($errors == false) {
+                    $result = User::edit($id, $firstname, $surname, $gender, $groups, $points);
+                    $message = true;
+
+                }
+
+            }
+
+        } else {
+            Router::gets();
+        }
 
         return true;
     }

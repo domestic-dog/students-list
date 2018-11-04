@@ -19,17 +19,18 @@ class Profile
         return $result->fetch();
     }
     public static function CheckSalt($id) {
-        $id = intval($id);
-        $db = Db::getConnection();
-        $key = $_COOKIE['key'];
+        if (isset($_COOKIE['key'])) {
+            $id = intval($id);
+            $db = Db::getConnection();
+            $key = $_COOKIE['key'];
 //        var_dump($_COOKIE['key']);
-        $result=$db->query('SELECT id FROM reg WHERE salt='.$key);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $ia = $result->fetch();
-        if ($id == $ia['id']) {
-            return true;
+            $result = $db->query('SELECT id FROM reg WHERE salt=' . $key);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $ia = $result->fetch();
+            if ($id == $ia['id']) {
+                return true;
+            }
         }
-
         return false;
 
     }

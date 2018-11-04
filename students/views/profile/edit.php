@@ -25,36 +25,43 @@
                 </div>
                 <div class="row">
                     <div class="col-md-10">
-                        <form method="post">
+                        <form action='<?php echo $list['id']; ?>' method="post">
                             <div class="form-group row">
                                 <label for="username" class="col-4 col-form-label">Имя</label>
                                 <div class="col-8">
-                                    <input id="username" name="username" value="<?php echo $list['firstname']; ?>"  readonly class="form-control-plaintext" required="required" type="text">
+                                    <input id="username" name="firstname" value="<?php echo $list['firstname']; ?>"
+                                           class="form-control" required="required" type="text">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">Фамилия</label>
                                 <div class="col-8">
-                                    <input id="name" name="name" value="<?php echo $list['surname']; ?>"  readonly class="form-control-plaintext" type="text">
+                                    <input id="name" name="surname" value="<?php echo $list['surname']; ?>"
+                                           class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="lastname" class="col-4 col-form-label">Пол</label>
                                 <div class="col-8">
-                                    <input id="lastname" name="lastname" value="<?php echo $list['gender']; ?>" readonly class="form-control-plaintext" type="text">
+                                    <input id="lastname" name="gender" value="<?php echo $list['gender']; ?>"
+                                           class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="text" class="col-4 col-form-label">Количество баллов</label>
                                 <div class="col-8">
-                                    <input id="text" name="text" value="<?php echo $list['points']; ?>"  readonly class="form-control-plaintext" required="required" type="text">
+                                    <input id="text" name="points" value="<?php echo $list['points']; ?>"
+                                           class="form-control" required="required" type="text">
                                 </div>
                             </div>
 
                                                         <div class="form-group row">
                                                             <label for="email" class="col-4 col-form-label">Группа*</label>
                                                             <div class="col-8">
-                                                                <input id="email" name="text" value="<?php echo $list['groups']; ?>" readonly class="form-control-plaintext" required="required" type="text">
+                                                                <input id="email" name="groups"
+                                                                       value="<?php echo $list['groups']; ?>"
+                                                                       class="form-control" required="required"
+                                                                       type="text">
                                                             </div>
                                                         </div>
                             <!--                            <div class="form-group row">-->
@@ -75,10 +82,11 @@
                             <!--                                    <input id="newpass" name="newpass" =rd" class="form-control here" type="text">-->
                             <!--                                </div>-->
                             <!--                            </div>-->
-                            <!--                            <div class="form-group row">-->
-                            <!--                                <div class="offset-4 col-8">-->
-                            <!--                                    <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>-->
-                            <!--                                </div>-->
+                            <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                    <button name="submit" type="submit" class="btn btn-primary">Update My Profile
+                                    </button>
+                                </div>
                             <!--                            </div>-->
                         </form>
                     </div>

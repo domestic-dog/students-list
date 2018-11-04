@@ -22,27 +22,46 @@ class Router
         }
     }
 
+    public static function gets()
+    {
+
+        include_once(ROOT . '/controllers/SiteController.php');
+        $segments = explode('/', '');
+
+        $mir = new SiteController;
+        $result = call_user_func_array(array($mir, 'actionNone'), $segments);
+
+
+    }
+
+
     public function run()
     {
 
         $uri = $this->getURI();
 
-
         foreach ($this->routes as $uriPattern => $path) {
+
 
             if (preg_match("~$uriPattern~", $uri)) {
 
 
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
                 $this->posturi = stristr($internalRoute, '?'); // забираем
-                //     $internalRoute = preg_replace("/\?.+/", "", $internalRoute); //обрезаем чтобы экшон мог работать
+                $interff = preg_replace("/\?.+/", "", $internalRoute); //обрезаем чтобы экшон мог работать
                 $segments = explode('/', $internalRoute);
+
                 $controllerName = array_shift($segments) . 'Controller';
+
                 $controllerName = ucfirst($controllerName);
-
                 $actionName = 'action' . ucfirst(array_shift($segments));
-
+//                   actionSecond = preg_replace('%[a-zA-Z0-9_-]%s','Actionnone',$actionName)
+                if ($actionName == 'actionIndex' . 'g' . 'site') {
+                    self::gets();
+                    break;
+                }
                 $parameters = $segments;
+
 
                 $controllerFile = ROOT . '/controllers/' .
                     $controllerName . '.php';
@@ -51,25 +70,28 @@ class Router
                     include_once($controllerFile);
                 }
 
-                // Создать объект, вызвать метод (т.е. action)
-                $controllerObject = new $controllerName;
 
+                if (class_exists($controllerName)) {
+                    $controllerObject = new $controllerName;
+                    if (method_exists($controllerObject, $actionName)) {
+                        $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+                        if ($result != null) {
+                            break;
+                        }
+                    } else {
+                        include_once(ROOT . '/controllers/SiteController.php');
+                        $segments = explode('/', '');
 
-                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
-
-
-                if ($result != null) {
-                    break;
+                        $mir = new SiteController;
+                        $result = call_user_func_array(array($mir, 'actionNone'), $parameters);
+                    }
                 }
-//                else {
-//                    include_once(ROOT.'/controllers/SiteController.php');
-//                    $segments = explode('/', '');
-//
-//                    $mir= new SiteController;
-//                    $result = call_user_func_array(array($mir, 'actionNone'), $segments);
-//                }
-            }
-        }
 
+            }
+
+
+        }
     }
+
+
 }

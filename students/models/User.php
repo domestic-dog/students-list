@@ -33,6 +33,21 @@ class User
 
     }
 
+    public static function edit($id, $firstname, $surname, $gender, $groups, $points)
+    {
+
+
+        $db = Db::getConnection();
+
+
+        $sql = "UPDATE reg SET firstname=?, surname=?, gender=?, groups=?, points=? WHERE id=?";
+        $result = $db->prepare($sql);
+
+        return $result->execute([$firstname, $surname, $gender, $groups, $points, $id]);
+
+    }
+
+
     public static function checkName($firstname)
     {
         if (preg_match('/^([а-яА-ЯЁёa-zA-Z]+)$/u', $firstname)) {
@@ -78,6 +93,13 @@ class User
         } else {
             return true;
 
+        }
+    }
+
+    public static function sussesAdd($message)
+    {
+        if ($message == true) {
+            echo "Вы успешно зарегистрированны";
         }
     }
 

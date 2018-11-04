@@ -5,7 +5,7 @@ return array(
     'register' => 'register/index',
     'maxpoints' => 'site/maxpoints',
     'result' => 'site/result',
-    '' => 'site/index',
+    '' => 'site/index/',
 
 
 

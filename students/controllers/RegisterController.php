@@ -3,12 +3,6 @@
 
 class RegisterController
 {
-//    public function  actionIndex()
-//    {
-//
-//        require_once (ROOT. '/views/register/index.php');
-//        return true;
-//    }
 
     public function actionIndex()
     {
@@ -58,7 +52,10 @@ class RegisterController
 
             if ($errors == false) {
                 $result = User::register($firstname, $surname, $gender, $groups, $points, $email, $fromis);
+                $message = true;
                 header("Location: / ");
+
+
             }
 
         }
@@ -68,9 +65,5 @@ class RegisterController
         return true;
     }
 
-//    public  static  function setCokies {
-//        $_SESSION['auth'] = true;
-//        $key = Helper::generateSalt();
-//
-//    }
+
 }

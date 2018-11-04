@@ -1,3 +1,4 @@
+<?php if (isset($message)): User::sussesAdd($message); endif; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -11,12 +12,12 @@
 <body >
 <div class="container-fluid">
     <div class="d-flex p-2 bg-dark text-light"><h3 class="text-center">Таблица
-            абитуриентов <?php if (!empty($_COOKIE['surname'])): echo 'Привет ' . $_SERVER['REQUEST_URI']; endif; ?> </h3>
+            абитуриентов <?php if (!empty($_COOKIE['surname'])): echo 'Привет ' . $_SERVER['REQUEST_URI'] . $_COOKIE['surname']; endif; ?></h3>
         <div class="ml-auto p-0  bg-dark text-light ">
             <?php if ($_SESSION['auth'] == false):echo '<h5 class="text-center"><a class="sad" href="/register/">register</a></h5>'; endif; ?>
-            <form class="form-inline my-2 my-lg-0" method="post">
+            <form action='result' method=POST class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="req">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submits">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submits">Поиск</button>
             </form>
         </div>
     </div>
@@ -47,6 +48,7 @@
     <?php endforeach; ?>
     </tbody>
     </table>
+    <?php echo $pagination->get(); ?>
 </div>
 </body>
 <script>

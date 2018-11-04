@@ -3,24 +3,18 @@
 
 class SiteController
 {
-    public function actionIndex()
+    public function actionIndex($id)
     {
         Helper::checkAuth();
+        $message = false;
         $list = array();
-      $list = Site::getList(100);
+        $list = Site::getList(50);
         require_once(ROOT . '/views/site/index.php');
 
-        if (isset($_POST['submits'])) {
-            $request = $_POST['req'];
-
-            $list = array();
-            $list = Site::Search($request);
-            require_once(ROOT . '/views/site/index.php');
-
-        }
         return true;
     }
-    public static function actionNone()
+
+    public function actionNone()
     {
         require_once(ROOT . '/views/404/404.php');
         return true;
@@ -29,17 +23,21 @@ class SiteController
     {
         Helper::checkAuth();
         $list = array();
-        $list = Site::getmaxList(20);
+        $list = Site::getmaxList();
         require_once(ROOT . '/views/site/index.php');
         return true;
     }
+
     public function actionResult()
     {
         Helper::checkAuth();
-        $list = array();
-        $list = Site::Search('Descry');
-        require_once(ROOT . '/views/site/index.php');
-        return true;
+        if (isset($_POST['submits'])) {
+            $request = $_POST['req'];
+            $list = array();
+            $list = Site::Search($request);
+            require_once(ROOT . '/views/site/index.php');
 
+        }
+        return true;
     }
 }
